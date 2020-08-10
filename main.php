@@ -9,6 +9,7 @@
     <title>ConvertMe</title>
 </head>
 <body>
+<?php $convert_options = ['txt', 'json', 'csv', 'xml', 'xlsx', 'xls'] ?>
 <div class="container">
     <div class="row justify-content-center align-self-center">
         <h1>Convert.me</h1>
@@ -20,8 +21,11 @@
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">Convert to: </label>
-            <select name="convert_options" class="form-control">
-    
+            <select name="convert_options" id="convert_option" class="form-control" onchange="fileselected()">
+                <?php foreach($convert_options AS $convert_option): ?>
+                    <?php $convert_selected = $_POST['convert_options']; ?>
+                    <option value = <?php echo $convert_option; ?> <?php if ($convert_selected == $convert_options): ?> selected <?php endif; ?>> <?php echo $convert_option; ?></option>             
+                <?php endforeach; ?>
             </select>
         </div>        
         <div class="form-group">
