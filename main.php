@@ -13,14 +13,14 @@
     <div class="row justify-content-center align-self-center">
         <h1>Convert.me</h1>
     </div>
-    <form method="post" action="converter.php">
+    <form method="post" action="converter.php" enctype="multipart/form-data">
         <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile">
+            <input type="file" name="file_to_convert" class="custom-file-input" id="file" accept=".txt,.json,.csv,.xml,.xlsx,.xls" onchange="filetype()">
             <label class="custom-file-label" for="customFile">Drop or browse file</label>
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">Convert to: </label>
-            <select name="convert_options" class="form-control" id="exampleFormControlSelect1">
+            <select name="convert_options" class="form-control">
     
             </select>
         </div>        
