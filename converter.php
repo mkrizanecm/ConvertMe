@@ -24,6 +24,9 @@ if (!empty($_POST['convert'])) {
             break;
         case "json":
             $data_array = json_decode(utf8_encode($file_temp_data), true);
+            if (json_last_error()) {
+                
+            }
             break;     
         case "xml":
             echo 3;
