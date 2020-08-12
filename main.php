@@ -9,19 +9,20 @@
     <title>ConvertMe</title>
 </head>
 <body>
-<?php $convert_options = ['txt', 'json', 'csv', 'xml', 'xlsx', 'xls'] ?>
-<div class="container">
+<?php $convert_options = ['json', 'csv', 'xml', 'xlsx', 'xls']; /* Additional options may be added */ ?>
+<div class="container h-100">
     <div class="row justify-content-center align-self-center">
         <h1>Convert.me</h1>
     </div>
     <form method="post" action="converter.php" enctype="multipart/form-data">
         <div class="custom-file">
-            <input type="file" name="file_to_convert" class="custom-file-input" id="file" accept=".txt,.json,.csv,.xml,.xlsx,.xls" onchange="filetype()">
+            <input type="file" name="file_to_convert" class="custom-file-input" id="file" accept=".json,.csv,.xml,.xlsx,.xls" onchange="filetype()">
             <label class="custom-file-label" for="customFile">Drop or browse file</label>
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">Convert to: </label>
             <select name="convert_options" id="convert_option" class="form-control" onchange="fileselected()">
+                <option value=""></option>             
                 <?php foreach($convert_options AS $convert_option): ?>
                     <?php $convert_selected = $_POST['convert_options']; ?>
                     <option value = <?php echo $convert_option; ?> <?php if ($convert_selected == $convert_options): ?> selected <?php endif; ?>> <?php echo $convert_option; ?></option>             
