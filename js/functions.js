@@ -19,7 +19,12 @@ function fileselected() {
     var file_extension = file.substr(dot, file.length).toLowerCase();
 
     var file_convert_extension = document.getElementById("convert_option").value;
-    if (file_convert_extension == file_extension) {
-        alert("Can't convert the file to the same format!");
+    if (file_convert_extension == file_extension || file_convert_extension == '') {
+        if (file_convert_extension == '') {
+            alert("Pick a format to convert to.");
+        } else {
+            alert("Can't convert the file to the same format!");
+            $("#convert_option").val('');
+        }
     }
 }

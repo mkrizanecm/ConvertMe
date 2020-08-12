@@ -14,22 +14,15 @@ if (!empty($_POST['convert'])) {
     }
 
     $file_extension = pathinfo($file, PATHINFO_EXTENSION);
-    $file_temp_data = file_get_contents($_FILES['file_to_convert']['tmp_name']);
-    $file_temp_data = str_replace('&quot;', '"', $file_temp_data);
-
+    $file_tmp_path = $_FILES['file_to_convert']['tmp_name'];
     $data_array = [];
     switch ($file_extension) {
-        case "txt":
-            echo 1;
-            break;
         case "json":
-            $data_array = json_decode(utf8_encode($file_temp_data), true);
-            if (json_last_error()) {
-                
-            }
+            $file_temp_data = file_get_contents($file_tmp_path);
+            $data_array = json_decode($file_temp_data, true);
             break;     
         case "xml":
-            echo 3;
+            $data_array = simplexml_load_file($file_tmp_path);
             break;
         case "xls":
             echo 4;
@@ -41,10 +34,11 @@ if (!empty($_POST['convert'])) {
             echo 6;
             break;    
     }
-    print_r($data_array); exit;
 
-    echo $file_extension; exit;
-
-
+    foreach ($data_array AS $key => $data) {
+        var_dump($key, $data);
+    }
+ exit;
+    
 }
 ?>
