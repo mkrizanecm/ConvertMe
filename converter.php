@@ -1,7 +1,7 @@
 <?php 
 
 require_once('classes/Converter.php');
-require_once(realpath(dirname(__FILE__) . '/../src/SimpleXLSX.php'));
+require_once('opensource/SimpleXLSX.php');
 
 if (!empty($_POST['convert'])) {
 
@@ -34,14 +34,9 @@ if (!empty($_POST['convert'])) {
             $data_array = simplexml_load_file($file_tmp_path);
             break;
         case "xls":
-            if ($xls = SimpleXLSX::parse($file_tmp_path) ) {
-                print_r( $xlsx->rows() );
-                exit;
-            } else {
-                echo SimpleXLSX::parseError();
-            }
             break;  
         case "xlsx":
+            $data_array = ($xlsx = SimpleXLSX::parse($file_tmp_path)) ? $xlsx->rows() : $data_array;
             break;
         case "csv":
             break;    
