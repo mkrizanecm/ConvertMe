@@ -31,7 +31,7 @@ if (!empty($_POST['convert'])) {
             $data_array = json_decode($file_temp_data, true);
             break;     
         case "xml":
-            $data_array = simplexml_load_file($file_tmp_path);
+            $data_array = file_get_contents($file_tmp_path);
             break;
         case "xls":
             break;  
@@ -43,8 +43,7 @@ if (!empty($_POST['convert'])) {
     }
 
     $converter = new Converter();
-    $function_name = 'to_' . $convert_to;
-    $return_file = $converter->$function_name($data_array);
+    $return_file = $converter->convert($data_array, $file_extension, $convert_to);
  
 }
 
