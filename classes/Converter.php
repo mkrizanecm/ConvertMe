@@ -1,7 +1,5 @@
 <?php 
 
-require_once('opensource/Xml2json.php');
-
 class Converter {
 
     public static function convert($data, $from_format, $to_format) {
