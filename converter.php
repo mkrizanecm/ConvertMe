@@ -43,9 +43,15 @@ if (!empty($_POST['convert'])) {
     $converter = new Converter();
     $return_data = $converter->convert($data_array, $file_extension, $convert_to);
 
-    header('Content-disposition: attachment; filename=file.json');
-    header('Content-type: application/json');
-    echo $return_data;
+    header('Content-Disposition: attachment; filename=returnfile.json');
+    header('Content-Type: application/json');
+
+    header('Content-Type: text/xml');
+    header('Content-Disposition: attachment; filename=returnfile.xml');
+
+    echo $return_data[0];
+
+    return;
 }
 
 ?>
