@@ -1,7 +1,6 @@
 <?php 
 
 require_once('classes/Converter.php');
-require_once('opensource/SimpleXLSX.php');
 
 if (!empty($_POST['convert'])) {
 
@@ -17,7 +16,6 @@ if (!empty($_POST['convert'])) {
     }
 
     $file_extension = pathinfo($file, PATHINFO_EXTENSION);
-
     if ($file_extension == $convert_to) {
         // Return same extension error
     }
@@ -33,18 +31,21 @@ if (!empty($_POST['convert'])) {
         case "xml":
             $data_array = file_get_contents($file_tmp_path);
             break;
-        case "xls":
-            break;  
-        case "xlsx":
-            $data_array = ($xlsx = SimpleXLSX::parse($file_tmp_path)) ? $xlsx->rows() : $data_array;
-            break;
         case "csv":
+            $file = fopen($file_tmp_path, 'r');
+            while (($line = fgetcsv($file)) !== FALSE) {
+                $line_array = explode(';', $line[0]);
+                $data_array[] = $line_array;
+            }
             break;    
     }
 
     $converter = new Converter();
-    $return_file = $converter->convert($data_array, $file_extension, $convert_to);
- 
+    $return_data = $converter->convert($data_array, $file_extension, $convert_to);
+
+    header('Content-disposition: attachment; filename=file.json');
+    header('Content-type: application/json');
+    echo $return_data;
 }
 
 ?>
