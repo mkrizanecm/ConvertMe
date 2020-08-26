@@ -47,7 +47,7 @@ if (!empty($_POST['convert'])) {
     header('Content-Type: application/json');
 
     header('Content-Type: text/xml');
-    header('Content-Disposition: attachment; filename=returnfile.xml');
+    header('Content-Disposition: attachment; filename=returnfile.csv');
 
     echo $return_data[0];
 

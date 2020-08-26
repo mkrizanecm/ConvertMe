@@ -32,9 +32,26 @@ class Converter {
             }
         } elseif ($from_format == 'json') {
             if ($to_format == 'xml'){
-
+                $return_format[0] = '<?xml version="1.0" encoding="utf-8"?>';
+                $return_format[0] .= '<parent>';
+                foreach ($data AS $key => $d) { 
+                    $return_format[0] .= '<child>';
+                    foreach ($d AS $k => $v) {
+                        $child_node = strtolower(str_replace(' ', '_', $k));
+                        $return_format[0] .= "<{$child_node}>" . $v . "</{$child_node}>";
+                    }
+                    $return_format[0] .= '</child>';
+                } 
+                $return_format[0] .= '</parent>';
             } elseif ($to_format == 'csv') {
-
+                $i = 0;
+                foreach ($data AS $key => $d) {
+                    if ($i == 0) {
+                        $return_format[0] = implode(';', array_keys($d)) . PHP_EOL;
+                        $i++;
+                    }
+                    $return_format[0] .= implode(';', array_values($d)) . PHP_EOL;
+                }
             }
         } elseif ($from_format == 'xml') {
             if ($to_format == 'json'){
